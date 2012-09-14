@@ -25,7 +25,8 @@ class LocaleDict(dict):
         return super(LocaleDict, self).__getitem__(normalize(key))
 
     def __setitem__(self, key, value):
-        return super(LocaleDict, self).__setitem__(normalize(key), value)
+        return super(LocaleDict, self).__setitem__(
+            normalize(key), unicode(value))
 
 
 class MultilingualString(unicode):
