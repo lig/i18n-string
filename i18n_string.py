@@ -43,7 +43,7 @@ class MultilingualString(unicode):
         language = (default_language and normalize_lang(default_language) or
             get_default_lang())
         translations = LocaleDict(translations)
-        value = translations[language]
+        value = translations.get(language, u'')
         self = unicode.__new__(cls, value)
         self.language = language
         self.translations = translations

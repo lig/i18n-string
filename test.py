@@ -36,6 +36,11 @@ class TestMultilingualString(unittest.TestCase):
         self.assertMultiLineEqual(
             self.s.translations['ru'], u'Государственный Эрмитаж')
 
+    def test005_translations_empty(self):
+        s = MultilingualString()
+        self.assertMultiLineEqual(s, u'')
+        self.assertDictEqual(s.translations, {})
+
 
 if __name__ == '__main__':
     unittest.main()
