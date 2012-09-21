@@ -2,6 +2,14 @@ from collections import Mapping
 from locale import getdefaultlocale, normalize
 
 
+def normalize_lang(lang):
+    return normalize(lang).split('.')[0]
+
+
+def get_default_lang():
+    return getdefaultlocale()[0]
+
+
 class LocaleDict(dict):
 
     def __new__(cls, data=None):
@@ -14,7 +22,7 @@ class LocaleDict(dict):
                     'Initial data must be instance of any mapping')
 
             for k, v in data.items():
-                self[normalize(k)] = unicode(v)
+                self[normalize_lang(k)] = unicode(v)
 
         return self
 
@@ -22,18 +30,18 @@ class LocaleDict(dict):
         pass
 
     def __getitem__(self, key):
-        return super(LocaleDict, self).__getitem__(normalize(key))
+        return super(LocaleDict, self).__getitem__(normalize_lang(key))
 
     def __setitem__(self, key, value):
         return super(LocaleDict, self).__setitem__(
-            normalize(key), unicode(value))
+            normalize_lang(key), unicode(value))
 
 
 class MultilingualString(unicode):
 
     def __new__(cls, translations=None, default_language=None):
-        language = (default_language and normalize(default_language) or
-            '.'.join(getdefaultlocale()))
+        language = (default_language and normalize_lang(default_language) or
+            get_default_lang())
         translations = LocaleDict(translations)
         value = translations[language]
         self = unicode.__new__(cls, value)

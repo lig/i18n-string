@@ -22,7 +22,7 @@ class TestMultilingualString(unittest.TestCase):
     def test003_translations_data(self):
         self.assertDictEqual(
             self.s.translations,
-            {'en_US.ISO8859-1': u'Hermitage', 'ru_RU.UTF-8': u'Эрмитаж'})
+            {'en_US': u'Hermitage', 'ru_RU': u'Эрмитаж'})
 
     def test004_translate(self):
         s = self.s.translate('en')
